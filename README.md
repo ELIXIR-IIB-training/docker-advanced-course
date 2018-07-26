@@ -1,19 +1,10 @@
 # docker-advanced-course
-Short course on docker
+
+Short course on docker. See the [official page](https://elixir-iib-training.github.io/website/2018/09/26/Docker_Milano_Bicocca.html).
 
 
-## When
+## List of topics
 
-26-27 September 2018
-
-## Where
-
-Univ. Milano-Bicocca
-Lab. 711, U7 Building
-
-## What
-
-A 2-day advanced course on docker.
 
 ### Day 1
 
@@ -38,10 +29,3 @@ and mount points
 15.30 Case studies  
 17.00 End of course  
 
-
-## Who
-
-The course will be given by Raoul Bonnal (INGM) and [Gianluca Della Vedova](https://gianluca.dellavedova.org) (Univ.
-Milano-Bicocca)
-
-The course can be attended by 20 people.
