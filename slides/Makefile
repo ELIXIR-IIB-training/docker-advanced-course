@@ -2,11 +2,11 @@ all: pdf html
 
 mds=$(wildcard *.md)
 
-%.pdf : %.md 
-	pandoc -t beamer $< -o $@
+%.pdf : %.md
+	pandoc -t beamer  -V theme:metropolis --listings  -V themeoptions:titleformat=smallcaps --pdf-engine xelatex  $< -o $@
 
 %.html : %.md
-	pandoc -t dzslides --standalone --self-contained $< -o $@
+	pandoc -t revealjs --standalone --self-contained -V revealjs-url=./reveal.js -V theme=moon $< -o $@
 
 
 pdfs=$(mds:.md=.pdf)
