@@ -1,4 +1,4 @@
-all: pdf html
+all: pdf #html
 
 mds=$(wildcard *.md)
 
@@ -11,6 +11,6 @@ mds=$(wildcard *.md)
 
 pdfs=$(mds:.md=.pdf)
 
-html: $(mds:.md=.html)
+# html: $(mds:.md=.html)
 
 pdf: $(pdfs)
