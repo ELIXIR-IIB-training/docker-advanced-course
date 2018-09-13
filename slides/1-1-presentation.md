@@ -136,7 +136,7 @@ docker run -it --rm --pid=host  ubuntu:18.04 top
 
 # docker run: limiting resources
 ```
-docker run -it --name vm -m 1g ubuntu:18.04 /bin/bash
+docker run -dt --name vm -m 1g ubuntu:18.04 /bin/bash
 ```
 
 **-m**: max amount of memory available
@@ -148,23 +148,16 @@ docker run -it --name vm -m 1g ubuntu:18.04 /bin/bash
 # docker run: command arguments
 
 ```
-docker run -it --name vm -m 1g  ls -lph /
+docker run -t  -m 1g ubuntu:18.04 ls -lph /var
 ```
 
 Just place them after the command.
-
-```
-docker run -it --name vm -m 1g --entrypoint="-lph /"  ls
-```
-
-Or give them as **--entrypoint**
-
 
 
 # docker run: environment
 
 ```
-docker run -it --name vm -m 1g -e "DEBUG=true" ls -lph /
+docker run -it -e "DEBUG=true" ubuntu:18.04 ls -lph /
 ```
 
 Set the value of an environment variable.
@@ -176,22 +169,10 @@ A separate **-e** for each variable.
 
 
 ```
-docker exec --name vm df -h
+docker exec vm df -h
 ```
 
-Runs a command (in this case **df -h**) in a container
-
-
-
-# docker attach
-
-```
-docker attach --name vm
-```
-
-Opens a terminal in a container
-
-
+Runs a command (in this case **df -h**) in a running container
 
 
 
@@ -206,6 +187,13 @@ List the images
 
 
 # docker image inspect
+
+```
+docker image inspect hello-world
+```
+
+
+Gives several information on the image
 
 # docker rmi
 
@@ -224,7 +212,14 @@ Deletes a local image. It has no effect on the hub.
 docker ps
 ```
 
-List the containers 
+List the running containers 
+
+
+```
+docker ps -a
+```
+
+List all containers 
 
 # docker rm
 
