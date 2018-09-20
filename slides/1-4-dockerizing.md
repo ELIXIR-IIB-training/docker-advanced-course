@@ -39,7 +39,7 @@ What are the permission of the new file?
 
 Build an image (i.e. write the Dockerfile) that:
 
-1.  installs the 1.7 version of `samtools`
+1.  installs the 1.7 version of `samtools` (via `apt-get`)
 3.  runs `samtools` saving the output in a directory outside the container.
 
 ```
@@ -63,7 +63,6 @@ docker run --rm -v $HOME/data:/data elixir3
 ```
 can be used to run the container
 
-
 # Solutions Ex. 3
 
 [Development version](https://github.com/ELIXIR-IIB-training/docker-advanced-course/solutions/1-4-03-samtools-build/Dockerfile)
@@ -71,4 +70,12 @@ can be used to run the container
 [Production version](https://github.com/ELIXIR-IIB-training/docker-advanced-course/solutions/1-4-03-samtools-build/final/Dockerfile)
 
 In production we want to minimize the *image size*, in development we want to minimize *runtime* (exploit the cache)
+
+
+# Exercise 4
+
+Build an image (i.e. write the Dockerfile) that:
+
+1.  runs a version of `samtools` that has been stored and compiled outside the container (e.g. in `$HOME/code/`), saving the output in a directory outside the 3 container.
+2.  find the best `docker run` invokation
 
