@@ -18,6 +18,11 @@ Everything is separated.
 How do we shared/access data ?
 
 # Data in Docker
+## Goals
+1. How Docker manages data ?
+2. Use different type of data storage
+
+# Data in Docker
 
 Docker has 3 options
 
@@ -98,3 +103,258 @@ This is useful for ephemeral storage required by your software
 | Sharing data among containers | Sharing configuration to containers|
 | The host lacks a directory structure | Sharing source code and build products |
 | Data can not be stored locally (cloud) | Stable direcotry and file structures shared w/ containers|
+
+# Data in Docker
+## CLI
+
+```
+$ docker volume
+
+Commands:
+  create   Create a volume
+  inspect  Display detailed information on one or more
+           volumes
+  ls       List volumes
+  prune    Remove all unused volumes
+  rm       Remove one or more volumes
+```
+
+# Data in Docker
+## CLI: Create a volume
+
+Elixir Docker Advanced Course 2018 Storage
+
+```
+$ docker volume create edac18-storage
+
+edac18-storage
+```
+
+
+# Data in Docker
+## CLI: List volumes
+
+
+```
+$ docker volume ls
+
+DRIVER    VOLUME NAME
+local     edac18-storage
+```
+
+
+# Data in Docker
+## CLI: Inspecting a volume
+
+```
+$ docker volume inspect edac18-storage
+
+[{
+  "CreatedAt": "2018-09-20T18:38+00:00",
+  "Driver": "local",
+  "Labels": {},
+  "Mountpoint": "/var/lib/docker/volumes/edac18-storage/
+                _data",
+  "Name": "edac18-storage",
+  "Options": {},
+  "Scope": "local"
+  }]
+```
+
+
+# Data in Docker
+## CLI: Use a volume
+
+Run a container with Ubuntu 18.04 and create a file with something inside
+```
+$ docker run --rm -v edac18-storage:/data
+			 -it ubuntu:18.04 /bin/bash
+$ echo $RANDOME > /data/seed
+$ exit
+```
+
+After closing the container data are store an can be accessed
+w/ another container
+
+```
+$ docker run --rm -v edac18-storage:/data 
+             -it ubuntu:18.04 /bin/bash 
+			 -c "cat /data/seed"
+```
+
+# Data in Docker
+## CLI: Mount points
+
+Load your own directory inside the container
+
+```
+$ docker run -v /opt:/host/opt
+             --name edac18
+			 --rm -it ubuntu:18.04 /bin/bash
+
+```
+
+# Data in Docker
+## CLI: Mount points
+
+Load your own directory inside the container
+
+```
+$ docker run -v /opt:/host/opt
+             --name edac18
+			 --rm -it ubuntu:18.04 /bin/bash
+
+```
+
+*Docker does not like relative path*
+
+
+# Data in Docker
+## CLI: Volumes & Mount points
+
+Combine volumes and mount points in a single instance
+
+```
+$ docker run -v /opt:/host/opt
+             -v edac18-storage:/data
+             --name edac18
+			 --rm -it ubuntu:18.04 /bin/bash
+
+```
+
+# Data in Docker
+## CLI: Share data w/ containers
+
+
+```
+$ docker run -v /opt:/host/opt
+             -v edac18-storage:/data
+             --name edac18
+			 --rm -it ubuntu:18.04 /bin/bash
+
+```
+Another container can access to the data at the same time
+```
+$ docker run --volumes-from edac18
+             --name backup
+			 --rm -it ubuntu:18.04 /bin/bash
+
+```
+*You may notice some lag in updating data, it depends on the underlying Docker filesystem* 
+
+
+# Data in Docker
+## CLI: Share data w/ containers
+
+
+```
+$ docker run -v /opt:/host/opt
+             -v edac18-storage:/data
+             --name edac18
+			 --rm -it ubuntu:18.04 /bin/bash
+
+```
+Another container can access to the data and perform a backup automatically
+```
+$ docker run --volumes-from edac18
+             --name backup
+			 --rm -it ubuntu:18.04 tar vcz /host/opt/backup.tar.gz /data
+
+```
+*You may notice some lag in updating data, it depends on the underlying Docker filesystem* 
+
+
+# Data in Docker
+## CLI: Volumes on the fly
+
+When needed you can even create a Volume at runtime w/o using the explicit `create` command. 
+
+
+```
+$ docker run -v bioinfo:/reads
+             -v /opt:/host/opt
+             -v edac18-storage:/data
+             --name edac18
+			 --rm -it ubuntu:18.04 /bin/bash
+
+```
+
+# Data in Docker
+## CLI: Volumes on the fly
+
+When needed you can even create a Volume at runtime w/o using the explicit `create` command. 
+
+
+```
+$ docker volume ls
+
+DRIVER    VOLUME NAME
+local     edac18-storage
+local     bioinfo
+```
+
+
+# Data in Docker
+## CLI: Anonymous Volumes 
+
+When needed you can even create a Volume at runtime w/o using the explicit `create` command. 
+
+
+```
+$ docker run -v /anonymous
+             -v bioinfo:/reads
+             -v /opt:/host/opt
+             -v edac18-storage:/data
+             --name edac18
+			 --rm -it ubuntu:18.04 /bin/bash
+
+```
+
+# Data in Docker
+## CLI: Anonymous Volumes
+
+When needed you can even create a Volume at runtime w/o using the explicit `create` command. 
+
+
+```
+$ docker volume ls
+
+DRIVER    VOLUME NAME
+local     edac18-storage
+local     bioinfo
+```
+
+* Once exited from the container, there is no evidence about the anonymous container *
+
+# Data in Docker
+## CLI: Anonymous Volumes w/o `--rm`
+
+When needed you can even create a Volume at runtime w/o using the explicit `create` command. 
+
+
+```
+$ docker run -v /anonymous
+             -v bioinfo:/reads
+             -v /opt:/host/opt
+             -v edac18-storage:/data
+             --name edac18
+			 -it ubuntu:18.04 /bin/bash
+
+```
+
+# Data in Docker
+## CLI: Anonymous Volumes w/o `--rm`
+
+When needed you can even create a Volume at runtime w/o using the explicit `create` command. 
+
+
+```
+$ docker volume ls
+
+DRIVER    VOLUME NAME
+local     edac18-storage
+local     bioinfo
+local     8a76g20jc0gcbgf3952gbdnihd253r801skala7898y...
+```
+
+*Once exited from the container, there is no evidence about the anonymous container*
