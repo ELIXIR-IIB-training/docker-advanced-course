@@ -358,3 +358,44 @@ local     8a76g20jc0gcbgf3952gbdnihd253r801skala7898y...
 ```
 
 *Once exited from the container, there is no evidence about the anonymous container*
+
+# Data in Docker
+## Tech notes
+
+Docker *volumes*, *images*, *containers* are capped to a defaul value which is configured at daemon level usually around `10 GB`
+
+```
+dm.basesize
+```
+
+# Data in Docker
+## Tech notes
+
+The `dm.basesize` can be increased but the Docker's daemon must be restared.
+
+
+# Data in Docker
+## Tech notes
+
+The user can run the daemon by hand 
+```
+$ sudo dockerd --storage-opt dm.basesie=50G
+```
+
+
+# Data in Docker
+## Tech notes
+
+The user can increase the size but never decrease it.
+
+If the user specifes a value which is lower than the minumin size of *volumes*, *images*, *containers* Docker will complain with errors.
+
+# Data in Docker
+## Tech notes
+
+Usually everything works fine, but may happend that Docker' system dir should be wiped out
+```
+$ sudo service docker stop
+
+$ sudo rm -rf /var/lib/docker
+```
