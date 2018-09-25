@@ -172,3 +172,18 @@ $ curl http://localhost:5000/raoul/ubuntu/manifests/18.04
 ```
 ![RegistryDetails](img/RegistryDetails.png)
 
+# Docker Hub: public registry
+
+![Docker Hub](img/docker-222-114.jpg)
+
+# Docker Hub: public registry
+
+![Docker Hub](img/docker-223-116.jpg)
+
+# Docker Hub: public registry
+
+* register a new user to [Docker Hub](https://hub.docker.com/)
+* `export DOCKER_ID_USER="username"`
+* `docker login`
+* `docker tag imageX $DOCKER_ID_USER/imageX`
+* `docker push $DOCKER_ID_USER/imageX`
