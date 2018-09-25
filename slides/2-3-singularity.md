@@ -19,9 +19,10 @@ A container technology with two goals in mind
 
 # Singulrarity: install
 
+\tiny
 ```
 $ apt update &&\
-apt install autoconf \
+  apt install autoconf \
 			automake \
 			autotools-dev \
             build-essential \
@@ -39,12 +40,14 @@ git checkout tags/2.6.0 -b 2.6.0
 ./autogen.sh
 ./configure --prefix=/usr/local
 make
-sudo make install 
-EOH									  
+sudo make install 									  
 ```
+\normalsize
+
 # Singulrarity: install
 in a Dockerfile
 
+\tiny
 ```
 FROM ubuntu:18.04
 
@@ -73,7 +76,7 @@ RUN git checkout tags/2.6.0 -b 2.6.0 &&\
 	make install 
 									  
 ```
-
+\normalsize
 # Singularity: running w/ Docker
 
 Run singularity inside Docker, this is tricky
@@ -96,3 +99,10 @@ $ docker run \
 	-it \
 	singularity:2.6.0
 ```
+# Singularity: build
+
+Example of simple Singularity file
+
+# Singularity: build w/ Docker Registry
+
+Example of my Singularity file getting data from Docker Registry
