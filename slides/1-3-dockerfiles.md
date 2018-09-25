@@ -364,4 +364,4 @@ RUN apt-get update &&\
 
 # Dockerfile: building
 
-![DokerBuilding](img/docker-198-106.jpg)
+![DokerBuilding](img/BuildingDockerfile.png)
