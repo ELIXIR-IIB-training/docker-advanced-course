@@ -17,7 +17,7 @@ A docker can be created by hand
 
 this is more or less the process for creating a reusable container *an Image*
 
-# Dockerfile> why?
+# Dockerfile: why?
 
 By *hand* is good for practicing or testing but is very bad for 
 
@@ -137,6 +137,19 @@ ENV description A great piece of software
 ENV author someone
 ```
 these variable are available during the building process and when the container is running
+
+# Dockerfile: WORKDIR
+
+Sets the working directory for the following *instructions*
+
+```
+ENV MYSUBDIR mytmp
+RUN mkdir /opt/$MYSUBDIR
+WORKDIR /opt/$MYSUBDIR
+RUN pwd
+```
+
+Works for `RUN`, `CMD`, `ENTRYPOINT`, `COPY` and `ADD`
 
 # Dockerfile: injecting files
 
