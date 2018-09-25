@@ -6,19 +6,16 @@ header-includes:
 -  \setmonofont{Ubuntu Mono}
 ---
 
-# Add the Storage details
-TODO
-
 # Data in Docker
 
 We are in a containerized world.
 
 Everything is separated.
 
-How do we shared/access data ?
+How do we share/access data ?
 
-# Data in Docker
-## Goals
+# Data in Docker: Goals
+
 1. How Docker manages data ?
 2. Use different type of data storage
 
@@ -36,17 +33,14 @@ Docker has 3 options
 
 ![Docker & Data](img/docker-080-054.jpg)
 
-# Data in Docker
-
-## Volumes
+# Data in Docker: Volumes
 
 * Managed directly by Docker
 * Saved in `/var/lib/docker/volumes/` on the host
 * System processes can not access data outside Docker
 * Recommended by Docker to store data in Docker
 
-# Data in Docker
-## Volumes
+# Data in Docker: Volumes
 
 * User can create its own volumes or instruct Docker to create them when required by the containers or services
 * The container see the volume as a directory and the user define the name
@@ -57,18 +51,14 @@ Docker has 3 options
 * A volume can be an *object* in the cloud, the user must use a proper *driver*
 * Avoid to increase the size of the container
 
-# Data in Docker
-
-## Bind mounts
+# Data in Docker: Bind mounts
 
 * Managed directly by the host OS
 * Saved in `/in/your/path/` on the host OS
 * System processes or Docker containers can access to the data
 * It is possible to override important files or directory on the host OS
 
-# Data in Docker
-
-## Bind mounts
+# Data in Docker: Bind mounts
 
 * Files and directory from the host are mounted inside the container at runtime
 * Require the target's full path on the host machine
@@ -95,8 +85,7 @@ In memory storage
 This is useful for ephemeral storage required by your software
 
 
-# Data in Docker
-## When use What
+# Data in Docker: When use What
 
 | Volume | Bind mount |
 |--------|------------|
@@ -104,8 +93,7 @@ This is useful for ephemeral storage required by your software
 | The host lacks a directory structure | Sharing source code and build products |
 | Data can not be stored locally (cloud) | Stable direcotry and file structures shared w/ containers|
 
-# Data in Docker
-## CLI
+# Data in Docker: CLI
 
 ```
 $ docker volume
@@ -119,8 +107,7 @@ Commands:
   rm       Remove one or more volumes
 ```
 
-# Data in Docker
-## CLI: Create a volume
+# Data in Docker: Create a volume
 
 Elixir Docker Advanced Course 2018 Storage
 
@@ -131,8 +118,7 @@ edac18-storage
 ```
 
 
-# Data in Docker
-## CLI: List volumes
+# Data in Docker: List volumes
 
 
 ```
@@ -143,9 +129,9 @@ local     edac18-storage
 ```
 
 
-# Data in Docker
-## CLI: Inspecting a volume
+# Data in Docker: Inspecting a volume
 
+\tiny
 ```
 $ docker volume inspect edac18-storage
 
@@ -160,10 +146,9 @@ $ docker volume inspect edac18-storage
   "Scope": "local"
   }]
 ```
+\normalsize
 
-
-# Data in Docker
-## CLI: Use a volume
+# Data in Docker: Use a volume
 
 Run a container with Ubuntu 18.04 and create a file with something inside
 ```
@@ -182,8 +167,7 @@ $ docker run --rm -v edac18-storage:/data
 			 -c "cat /data/seed"
 ```
 
-# Data in Docker
-## CLI: Mount points
+# Data in Docker: Mount points
 
 Load your own directory inside the container
 
@@ -194,8 +178,7 @@ $ docker run -v /opt:/host/opt
 
 ```
 
-# Data in Docker
-## CLI: Mount points
+# Data in Docker: Mount points
 
 Load your own directory inside the container
 
@@ -209,8 +192,7 @@ $ docker run -v /opt:/host/opt
 *Docker does not like relative path*
 
 
-# Data in Docker
-## CLI: Volumes & Mount points
+# Data in Docker: Volumes & Mount points
 
 Combine volumes and mount points in a single instance
 
@@ -222,8 +204,7 @@ $ docker run -v /opt:/host/opt
 
 ```
 
-# Data in Docker
-## CLI: Share data w/ containers
+# Data in Docker: Share data w/ containers
 
 
 ```
@@ -243,8 +224,7 @@ $ docker run --volumes-from edac18
 *You may notice some lag in updating data, it depends on the underlying Docker filesystem* 
 
 
-# Data in Docker
-## CLI: Share data w/ containers
+# Data in Docker: Share data w/ containers
 
 
 ```
@@ -259,16 +239,13 @@ Another container can access to the data and perform a backup automatically
 $ docker run --volumes-from edac18
              --name backup
 			 --rm -it ubuntu:18.04 tar vcz /host/opt/backup.tar.gz /data
-
 ```
 *You may notice some lag in updating data, it depends on the underlying Docker filesystem* 
 
 
-# Data in Docker
-## CLI: Volumes on the fly
+# Data in Docker: Volumes on the fly
 
 When needed you can even create a Volume at runtime w/o using the explicit `create` command. 
-
 
 ```
 $ docker run -v bioinfo:/reads
@@ -276,14 +253,11 @@ $ docker run -v bioinfo:/reads
              -v edac18-storage:/data
              --name edac18
 			 --rm -it ubuntu:18.04 /bin/bash
-
 ```
 
-# Data in Docker
-## CLI: Volumes on the fly
+# Data in Docker: Volumes on the fly
 
 When needed you can even create a Volume at runtime w/o using the explicit `create` command. 
-
 
 ```
 $ docker volume ls
@@ -294,11 +268,9 @@ local     bioinfo
 ```
 
 
-# Data in Docker
-## CLI: Anonymous Volumes 
+# Data in Docker: Anonymous Volumes 
 
 When needed you can even create a Volume at runtime w/o using the explicit `create` command. 
-
 
 ```
 $ docker run -v /anonymous
@@ -310,11 +282,9 @@ $ docker run -v /anonymous
 
 ```
 
-# Data in Docker
-## CLI: Anonymous Volumes
+# Data in Docker: Anonymous Volumes
 
 When needed you can even create a Volume at runtime w/o using the explicit `create` command. 
-
 
 ```
 $ docker volume ls
@@ -326,8 +296,7 @@ local     bioinfo
 
 * Once exited from the container, there is no evidence about the anonymous container *
 
-# Data in Docker
-## CLI: Anonymous Volumes w/o `--rm`
+# Data in Docker: Anonymous Volumes w/o `--rm`
 
 When needed you can even create a Volume at runtime w/o using the explicit `create` command. 
 
@@ -342,8 +311,7 @@ $ docker run -v /anonymous
 
 ```
 
-# Data in Docker
-## CLI: Anonymous Volumes w/o `--rm`
+# Data in Docker: Anonymous Volumes w/o `--rm`
 
 When needed you can even create a Volume at runtime w/o using the explicit `create` command. 
 
@@ -359,8 +327,7 @@ local     8a76g20jc0gcbgf3952gbdnihd253r801skala7898y...
 
 *Once exited from the container, there is no evidence about the anonymous container*
 
-# Data in Docker
-## Tech notes
+# Data in Docker: Tech notes
 
 Docker *volumes*, *images*, *containers* are capped to a defaul value which is configured at daemon level usually around `10 GB`
 
@@ -368,14 +335,12 @@ Docker *volumes*, *images*, *containers* are capped to a defaul value which is c
 dm.basesize
 ```
 
-# Data in Docker
-## Tech notes
+# Data in Docker: Tech notes
 
 The `dm.basesize` can be increased but the Docker's daemon must be restared.
 
 
-# Data in Docker
-## Tech notes
+# Data in Docker: Tech notes
 
 The user can run the daemon by hand 
 ```
@@ -383,15 +348,13 @@ $ sudo dockerd --storage-opt dm.basesie=50G
 ```
 
 
-# Data in Docker
-## Tech notes
+# Data in Docker: Tech notes
 
 The user can increase the size but never decrease it.
 
 If the user specifes a value which is lower than the minumin size of *volumes*, *images*, *containers* Docker will complain with errors.
 
-# Data in Docker
-## Tech notes
+# Data in Docker: Tech notes
 
 Usually everything works fine, but may happend that Docker' system dir should be wiped out
 ```
