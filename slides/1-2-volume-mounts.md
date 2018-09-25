@@ -46,6 +46,8 @@ Docker has 3 options
 * The container see the volume as a directory and the user define the name
 * Docker guarantees isolation from the host machine
 * A volume can be mounted by many containers at the same time
+
+# Data in Docker: Volumes
 * If not used it is not destroyed, the user must remove the volume explicitly
 * The user can name a volume or Docker create a random name automatically
 * A volume can be an *object* in the cloud, the user must use a proper *driver*
@@ -72,9 +74,9 @@ Docker has 3 options
 
 Expose a *Volume* or *Bind Mount* into the container
 ```
----volume
+---volume | -v
 ```
-Docker handles the different betweeen *Volume* and *Bind Mount* from the command line
+Docker infers if it is a *Volume* or a *Bind Mount* from the command line
 
 # Data in Docker
 
@@ -82,8 +84,7 @@ In memory storage
 ```
 ---tmpfs
 ```
-This is useful for ephemeral storage required by your software
-
+This is useful for ephemeral storage
 
 # Data in Docker: When use What
 
@@ -152,18 +153,18 @@ $ docker volume inspect edac18-storage
 
 Run a container with Ubuntu 18.04 and create a file with something inside
 ```
-$ docker run --rm -v edac18-storage:/data
-			 -it ubuntu:18.04 /bin/bash
+$ docker run --rm -v edac18-storage:/data \
+			 -it ubuntu:18.04 /bin/bash 
 $ echo $RANDOME > /data/seed
 $ exit
 ```
 
-After closing the container data are store an can be accessed
-w/ another container
+After closing the container data are stored an can be accessed
+by another container
 
 ```
-$ docker run --rm -v edac18-storage:/data 
-             -it ubuntu:18.04 /bin/bash 
+$ docker run --rm -v edac18-storage:/data \
+             -it ubuntu:18.04 /bin/bash \
 			 -c "cat /data/seed"
 ```
 
@@ -172,8 +173,8 @@ $ docker run --rm -v edac18-storage:/data
 Load your own directory inside the container
 
 ```
-$ docker run -v /opt:/host/opt
-             --name edac18
+$ docker run -v /opt:/host/opt \
+             --name edac18 \
 			 --rm -it ubuntu:18.04 /bin/bash
 
 ```
@@ -183,8 +184,8 @@ $ docker run -v /opt:/host/opt
 Load your own directory inside the container
 
 ```
-$ docker run -v /opt:/host/opt
-             --name edac18
+$ docker run -v /opt:/host/opt \
+             --name edac18 \
 			 --rm -it ubuntu:18.04 /bin/bash
 
 ```
@@ -197,9 +198,9 @@ $ docker run -v /opt:/host/opt
 Combine volumes and mount points in a single instance
 
 ```
-$ docker run -v /opt:/host/opt
-             -v edac18-storage:/data
-             --name edac18
+$ docker run -v /opt:/host/opt \
+             -v edac18-storage:/data \
+             --name edac18 \
 			 --rm -it ubuntu:18.04 /bin/bash
 
 ```
@@ -208,16 +209,16 @@ $ docker run -v /opt:/host/opt
 
 
 ```
-$ docker run -v /opt:/host/opt
-             -v edac18-storage:/data
-             --name edac18
+$ docker run -v /opt:/host/opt \
+             -v edac18-storage:/data \
+             --name edac18 \
 			 --rm -it ubuntu:18.04 /bin/bash
 
 ```
 Another container can access to the data at the same time
 ```
-$ docker run --volumes-from edac18
-             --name backup
+$ docker run --volumes-from edac18 \
+             --name backup \
 			 --rm -it ubuntu:18.04 /bin/bash
 
 ```
@@ -226,20 +227,24 @@ $ docker run --volumes-from edac18
 
 # Data in Docker: Share data w/ containers
 
-
+\scriptsize
 ```
-$ docker run -v /opt:/host/opt
-             -v edac18-storage:/data
-             --name edac18
+$ docker run -v /opt:/host/opt \
+             -v edac18-storage:/data \
+             --name edac18 \
 			 --rm -it ubuntu:18.04 /bin/bash
 
 ```
+\normalsize
 Another container can access to the data and perform a backup automatically
+\scriptsize
 ```
-$ docker run --volumes-from edac18
-             --name backup
-			 --rm -it ubuntu:18.04 tar vcz /host/opt/backup.tar.gz /data
+$ docker run --volumes-from edac18 \
+             --name backup \
+			 --rm -it ubuntu:18.04 \
+			 tar vcz /host/opt/backup.tar.gz /data
 ```
+\normalsize
 *You may notice some lag in updating data, it depends on the underlying Docker filesystem* 
 
 
@@ -294,7 +299,7 @@ local     edac18-storage
 local     bioinfo
 ```
 
-* Once exited from the container, there is no evidence about the anonymous container *
+*Once exited from the container, there is no evidence about the anonymous container*
 
 # Data in Docker: Anonymous Volumes w/o `--rm`
 
@@ -324,8 +329,6 @@ local     edac18-storage
 local     bioinfo
 local     8a76g20jc0gcbgf3952gbdnihd253r801skala7898y...
 ```
-
-*Once exited from the container, there is no evidence about the anonymous container*
 
 # Data in Docker: Tech notes
 
