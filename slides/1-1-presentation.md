@@ -124,7 +124,7 @@ docker run -it --name vm ubuntu:18.04 /bin/bash
 
 **--name**: name of the *container*
 
-Sometimes a random name in not a good idea
+Sometimes a random name is not a good idea
 
 
 # docker run: name
@@ -141,7 +141,7 @@ docker run -dt --name vm -m 1g ubuntu:18.04 /bin/bash
 
 **-m**: max amount of memory available
 
-**--memory-swap**: max amount of swap memory. If not specified is equal to the max memmory (in this case 1GB**
+**--memory-swap**: max amount of swap memory. If not specified is equal to the max memmory (in this case 1GB)
 
 **--cpus**: number of cpus available. Can be a fraction
 
