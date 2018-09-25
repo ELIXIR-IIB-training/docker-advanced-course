@@ -79,14 +79,14 @@ FROM ubuntu:18.04
 A `Dockerfile` can be used for building a new image
 
 ```
- $ docker build -t Origin .
+ $ docker build -t origin .
  Sending build context to Docker daemon  2.048kB
  Step 1/1 : FROM ubuntu:18.04
   ---> cd6d8154f1e1
   Successfully built cd6d8154f1e1
-  Successfully tagged Origin:latest
+  Successfully tagged origin:latest
 ```
-A new image is created with the `sha256` `cd6d8154f1e1` called `Origin` and the version, in this case by default `Docker` assign the tag `latest`
+A new image is created with the `sha256` `cd6d8154f1e1` called `origin` and the version, in this case by default `Docker` assign the tag `latest`
 
 # Dockerfile: FROM
 
@@ -105,12 +105,13 @@ Metadata are useful in order to describe the image, making it more consumable by
 
 `LABEL <key>=<value> <key>=<value> <key>=<value> ...`
 ```
-LABEL "com.example.vendor"="ACME Incorporated"
-LABEL com.example.label-with-value="foo"
-LABEL version="1.0"
-LABEL description="This text illustrates \
-that label-values can span multiple lines."
-
+LABEL org.ingm.group="Your Boss name"
+LABEL maintainer="Bonnal Raoul J.P. <bonnal@ingm.org>"
+LABEL project="Elixir Test"
+LABEL description="Dockerfile example \
+with multiple lines."
+LABEL version="1.2"
+ 
 LABEL maintainer=”bonnal@ingm.org”
 ```
 User is free to use any kind of `key=val` convention but the *reverse DNS* notation.
@@ -125,21 +126,21 @@ ENV <key>=<value> ...
 ```
 
 ```
-ENV myName="John Doe" myDog=Rex\ The\ Dog \
-    myCat=fluffy
+ENV software="samtools" description=A\ great\ piece\ of\ software
+    author=someone
 ```	
 and
 	
 ```
-ENV myName John Doe
-ENV myDog Rex The Dog
-ENV myCat fluffy
+ENV software samtools
+ENV description A great piece of software
+ENV author someone
 ```
 these variable are available during the building process and when the container is running
 
 # Dockerfile: injecting files
 
-To fully customize the image, external files can be include. To achieve this `Docker` provides two different tools
+To fully customize the image, external files can be included. To achieve this `Docker` provides two different tools
 
 * `ADD`
 * `COPY`
@@ -154,6 +155,7 @@ ADD [--chown=<user>:<group>] ["<src>",... "<dest>"]
 * Digest URLs, download
 * Unpack archives (identity, gzip, bzip2 or xz)
 * Does not perform authentication
+* At every build it is re excuted
 
 # Dockerfile: COPY
 
@@ -185,9 +187,134 @@ USER <user>[:<group>]
 USER <UID>[:<GID>]
 ```
 
+# Dockerfile: RUN
+
+To customise the installation the user must execute commands.
+
+The commands are run inside a default shell `/bin/sh -c`
+
+Use the `SHELL` clause to change the shell for the following `Dockerfile`
+
+When a `RUN` succeed Docker will write a layer.
+
+
+# Dockerfile: RUN
+
+`RUN` have two forms:
+
+```
+RUN apt-get update
+```
+or use a more explicit form where parameters are passed in a sort of `JSON` notation
+
+``` 
+RUN ["apt-get", "update"]
+```
+
+The JSON form does not create a shell for the command, so variable can not be substituted. To use the shell substitution call the shell first.
+
+# Dockerfile: RUN
+
+A `RUN` command can span multiple lines
+
+`RUN apt-get install -y wget git python3.6 `
+
+```
+RUN apt-get install -y wget \
+                       git \
+					   python3.6
+```
+
+# Dockerfile: RUN
+
+A `RUN` command can be made by multiple commands
+
+```
+RUN comamnd1 && command2
+```
+
+The `RUN` will pass and create a layer only if it succeed. Otherwise, Docker will report the original error.
+
+# Dockerfile: RUN
+
+Combining commands and spanning the commands on multiple lines helps in readibility and building complex configurations.
+
+```
+RUN apt-get update &&\
+    apt-get install -y wget 
+```
+# Dockerfile: RUN
+
+Combining commands and spanning the commands on multiple lines helps in readibility and building complex configurations.
+
+```
+RUN apt-get update &&\
+    apt-get install -y wget \
+	                   git \
+					   python3.6
+```
+
+# Dockerfile: ENTRYPOINT
+Defines a container that runs as an executable
+
+Forms:
+
+**exec**: preferred
+
+	ENTRYPOINT ["executable", "param1", "param2"]
+
+**shell**: 
+
+	ENTRYPOINT command param1 param2
+
+
+# Dockerfile: CMD
+Defines the default behaviour for the container.
+
+Forms:
+
+**exec**: preferred
+
+	CMD ["executable","param1","param2"]
+
+**default parameters to ENTRYPOINT**:
+
+	CMD ["param1","param2"]
+
+**shell**:
+
+	CMD command param1 param2
+
+# Dockerfile: VOLUME
+It is possible to embed the volume definition at build time.
+
+Any change, at build time, after the definition will be discarded.
+
+`VOLUME ["/path","..."]`
+
+`VOLUME /path_a /path_b`
+
+Volumes are:
+
+* created automatically at run time
+* can be shared between containers with `--volumes-from`
+* are anonymous at runtime
+* can be inspected looking at `/var/lib/docker/volumes`
+
+# Dockerfile: VOLUME
+
+Example of creating a `VOLUME` 
+
+```
+FROM ubuntu:18.04
+RUN mkdir /opt/elixir-volume
+RUN echo "This is a file with a foo text" > /opt/elixir-volume/README.txt
+VOLUME ["/opt/elixir-volume"]
+```
+
 # Dockerfile: context
 
-Context defines what is visible at the build time by Docker.
+Context defines what is visibleOA at the build time by Docker.
 Data inside the `context` are copied in a temporary place where the building process is working. The building process can see only data in that temporary place. 
 
 This process of `building the context` can take a lot of time if files are big and many.
@@ -201,3 +328,40 @@ Avoid:
 in the context.
 
 A lean `context` means quick build.
+
+# Dockerfile: validation
+
+A `Dockerfile` is a text file and Docker keep tracks of changes in the file.
+
+Most of the *instructions* generate a layer. 
+
+Changes to the text are invalidaing all the following *instructions* and they will be re-executed.
+
+# Dockerfile: example
+
+```
+FROM ubuntu:18.04
+
+LABEL org.ingm.group="Your Boss name"
+LABEL maintainer="Bonnal Raoul J.P. <bonnal@ingm.org>"
+LABEL project="Elixir Test"
+LABEL description="Dockerfile example"
+LABEL version="1.2"
+
+RUN apt-get update &&\
+    apt-get install -y wget \
+	                   git \
+					   python3.6
+```
+
+# Dockerfile: bulding
+
+`$ docker build -t origin .`
+
+`$ docker build -t origin Dockerfile .`
+
+`$ docker build -t origin -f /absolute/path/Dockerfile .`
+
+# Dockerfile: building
+
+![DokerBuilding](img/docker-198-106.jpg)
