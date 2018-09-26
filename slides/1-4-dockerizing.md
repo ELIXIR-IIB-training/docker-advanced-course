@@ -4,6 +4,7 @@ header-includes:
 -  \lstset{basicstyle=\ttfamily,breaklines=false}
 -  \lstset{backgroundcolor=\color{black!10},frame=TRBL, frameround=tttt}
 -  \setmonofont{Ubuntu Mono}
+- \hypersetup{colorlinks=true}
 ---
 
 # Dockerizing an application
@@ -122,6 +123,7 @@ Build an image (i.e. write the Dockerfile) that:
 
 # Conda packages
 
+*  Must be downloaded and installed (with bash)
 *  Relies on channels
    *  *base* with installation
    *  *bioconda*: bioinformatics programs
@@ -140,7 +142,7 @@ Build an image (i.e. write the Dockerfile) that:
 
 # Linuxbrew packages
 
-*  Only one source of packages
+*  Must be downloaded and installed*  Only one source of packages
 *  Similar to conda
    *  fewer packages
 
