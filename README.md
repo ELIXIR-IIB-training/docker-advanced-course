@@ -22,7 +22,7 @@ and mount points
 
 9.00  Dockerizing an application (part 2).  
 10.30 Coffee break  
-11.00 Deploying with a private `registry`.
+11.00 Deploying with a private `registry`  
 12.30 Lunch  
 13.30 Docker and singularity  
 15.00 Coffee break  
