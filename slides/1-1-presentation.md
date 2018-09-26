@@ -4,6 +4,7 @@ header-includes:
 -  \lstset{basicstyle=\ttfamily,breaklines=false}
 -  \lstset{backgroundcolor=\color{black!10},frame=TRBL, frameround=tttt}
 -  \setmonofont{Ubuntu Mono}
+- \hypersetup{colorlinks=true}
 ---
 
 # Advanced Docker Course

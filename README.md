@@ -2,6 +2,7 @@
 
 Short course on docker. See the [official page](https://elixir-iib-training.github.io/website/2018/09/26/Docker_Milano_Bicocca.html).
 
+[Shared whiteboard](https://board.net/p/elixir-docker-unimib)
 
 ## List of topics
 
@@ -22,7 +23,7 @@ and mount points
 
 9.00  Dockerizing an application (part 2).  
 10.30 Coffee break  
-11.00 Deploying with a private `registry`.
+11.00 Deploying with a private *registry*  
 12.30 Lunch  
 13.30 Docker and singularity  
 15.00 Coffee break  
