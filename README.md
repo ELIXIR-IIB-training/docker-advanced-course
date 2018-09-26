@@ -2,6 +2,7 @@
 
 Short course on docker. See the [official page](https://elixir-iib-training.github.io/website/2018/09/26/Docker_Milano_Bicocca.html).
 
+[Shared whiteboard](https://board.net/p/elixir-docker-unimib)
 
 ## List of topics
 
