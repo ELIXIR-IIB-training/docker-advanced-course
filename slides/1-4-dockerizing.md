@@ -47,6 +47,57 @@ What are the permission of the new file?
 
 [Solution](https://github.com/ELIXIR-IIB-training/docker-advanced-course/solutions/1-4-01-df/Dockerfile)
 
+# Installing programs
+
+1.  Ubuntu/Debian packages [list](https://packages.ubuntu.com/bionic/) or `apt search`
+2.  [Conda](https://conda.io) packages. [search](https://anaconda.org/) or `conda search`
+3.  [Linuxbrew](http://linuxbrew.sh/). [List](http://formulae.brew.sh/) or `brew search`
+3.  From specialized archives: e.g. `pip`
+4.  Compile the program
+
+# Ubuntu packages
+
+*  Lots of packages ready `apt-get install ne`
+*  Very robust
+*  Additional packages with PPAs `add-apt-repository ppa:user/ppa-name`
+   *  Not very useful for science
+
+## Advantages
+
+*  Safe and efficient
+*  Easy to rebuild from source
+
+## Cons
+
+*  Sometimes outdated (Ubuntu LTS are released every 2 years)
+
+# Conda packages
+
+*  Must be downloaded and installed (with bash)
+*  Relies on channels
+   *  *base* with installation
+   *  *bioconda*: bioinformatics programs
+   *  *conda-forge*: misc programs
+*  Not very robust/stable
+
+## Advantages
+
+*  Programs are usually the latest version
+
+## Cons
+
+*  Needs update to config files (`~/.bashrc`)
+*  Weird interactions with system programs/libraries
+*  Messes up with `$PATH` (e.g. shebang)
+
+# Linuxbrew packages
+
+*  Must be downloaded and installed
+*  Only one source of packages
+*  Similar to conda
+   *  fewer packages
+
+
 # Exercise 2
 
 Build an image (i.e. write the Dockerfile) that:
@@ -95,56 +146,6 @@ Build an image (i.e. write the Dockerfile) that:
 # Solution Ex. 4
 
 [Solution](https://github.com/ELIXIR-IIB-training/docker-advanced-course/solutions/1-4-04-samtools-external/Dockerfile)
-
-
-# Installing programs
-
-1.  Ubuntu/Debian packages [list](https://packages.ubuntu.com/bionic/) or `apt search`
-2.  [Conda](https://conda.io) packages. [search](https://anaconda.org/) or `conda search`
-3.  [Linuxbrew](http://linuxbrew.sh/). [List](http://formulae.brew.sh/) or `brew search`
-3.  From specialized archives: e.g. `pip`
-4.  Compile the program
-
-# Ubuntu packages
-
-*  Lots of packages ready `apt-get install ne`
-*  Very robust
-*  Additional packages with PPAs `add-apt-repository ppa:user/ppa-name`
-   *  Not very useful for science
-
-## Advantages
-
-*  Safe and efficient
-*  Easy to rebuild from source
-
-## Cons
-
-*  Sometimes outdated (Ubuntu LTS are released every 2 years)
-
-# Conda packages
-
-*  Must be downloaded and installed (with bash)
-*  Relies on channels
-   *  *base* with installation
-   *  *bioconda*: bioinformatics programs
-   *  *conda-forge*: misc programs
-*  Not very robust/stable
-
-## Advantages
-
-*  Programs are usually the latest version
-
-## Cons
-
-*  Needs update to config files (`~/.bashrc`)
-*  Weird interactions with system programs/libraries
-*  Messes up with `$PATH` (e.g. shebang)
-
-# Linuxbrew packages
-
-*  Must be downloaded and installed*  Only one source of packages
-*  Similar to conda
-   *  fewer packages
 
 
 # Exercise 5
