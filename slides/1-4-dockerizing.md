@@ -45,7 +45,7 @@ can be used to run the container
 
 What are the permission of the new file?
 
-[Solution](https://github.com/ELIXIR-IIB-training/docker-advanced-course/solutions/1-4-01-df/Dockerfile)
+[Solution](https://github.com/ELIXIR-IIB-training/tree/master/docker-advanced-course/solutions/1-4-01-df/Dockerfile)
 
 # Installing programs
 
@@ -110,7 +110,7 @@ docker run --rm -v $HOME/data:/data elixir2
 ```
 can be used to run the container
 
-[Solution](https://github.com/ELIXIR-IIB-training/docker-advanced-course/solutions/1-4-02-samtools/Dockerfile)
+[Solution](https://github.com/ELIXIR-IIB-training/tree/master/docker-advanced-course/solutions/1-4-02-samtools/Dockerfile)
 
 
 # Exercise 3
@@ -128,9 +128,9 @@ can be used to run the container
 
 # Solutions Ex. 3
 
-[Development version](https://github.com/ELIXIR-IIB-training/docker-advanced-course/solutions/1-4-03-samtools-build/Dockerfile)
+[Development version](https://github.com/ELIXIR-IIB-training/tree/master/docker-advanced-course/solutions/1-4-03-samtools-build/Dockerfile)
 
-[Production version](https://github.com/ELIXIR-IIB-training/docker-advanced-course/solutions/1-4-03-samtools-build/final/Dockerfile)
+[Production version](https://github.com/ELIXIR-IIB-training/tree/master/docker-advanced-course/solutions/1-4-03-samtools-build/final/Dockerfile)
 
 In production we want to minimize the *image size*, in development we want to minimize *runtime* (exploit the cache)
 
@@ -145,7 +145,7 @@ Build an image (i.e. write the Dockerfile) that:
 
 # Solution Ex. 4
 
-[Solution](https://github.com/ELIXIR-IIB-training/docker-advanced-course/solutions/1-4-04-samtools-external/Dockerfile)
+[Solution](https://github.com/ELIXIR-IIB-training/tree/master/docker-advanced-course/solutions/1-4-04-samtools-external/Dockerfile)
 
 
 # Exercise 5
@@ -163,6 +163,6 @@ can be used to run the container
 
 # Solution Ex. 5
 
-[Solution](https://github.com/ELIXIR-IIB-training/docker-advanced-course/solutions/1-4-05-samtools-conda/Dockerfile)
+[Solution](https://github.com/ELIXIR-IIB-training/tree/master/docker-advanced-course/solutions/1-4-05-samtools-conda/Dockerfile)
 
 
