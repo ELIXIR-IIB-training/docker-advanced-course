@@ -117,8 +117,8 @@ can be used to run the container
 
 Build an image (i.e. write the Dockerfile) that:
 
-1.  downloads the version [1.9](https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2) of `samtools`
-2.  compiles `samtools`
+1.  downloads and installs the latest version of `conda`
+2.  installs `samtools` via `conda`
 3.  runs `samtools` saving the output in a directory outside the container.
 
 ```
@@ -126,7 +126,20 @@ docker run --rm -v $HOME/data:/data elixir3
 ```
 can be used to run the container
 
-# Solutions Ex. 3
+# Exercise 4
+
+Build an image (i.e. write the Dockerfile) that:
+
+1.  downloads the version [1.9](https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2) of `samtools`
+2.  compiles `samtools`
+3.  runs `samtools` saving the output in a directory outside the container.
+
+```
+docker run --rm -v $HOME/data:/data elixir4
+```
+can be used to run the container
+
+# Solutions Ex. 4
 
 [Development version](https://github.com/ELIXIR-IIB-training/tree/master/docker-advanced-course/solutions/1-4-03-samtools-build/Dockerfile)
 
@@ -135,7 +148,7 @@ can be used to run the container
 In production we want to minimize the *image size*, in development we want to minimize *runtime* (exploit the cache)
 
 
-# Exercise 4
+# Exercise 5
 
 Build an image (i.e. write the Dockerfile) that:
 
@@ -143,26 +156,9 @@ Build an image (i.e. write the Dockerfile) that:
 2.  find the best `docker run` invokation
 
 
-# Solution Ex. 4
+# Solution Ex. 5
 
 [Solution](https://github.com/ELIXIR-IIB-training/tree/master/docker-advanced-course/solutions/1-4-04-samtools-external/Dockerfile)
 
-
-# Exercise 5
-
-
-Build an image (i.e. write the Dockerfile) that:
-
-1.  uses `conda` to install the latest version of `samtools`
-3.  runs `samtools` saving the output in a directory outside the container.
-
-```
-docker run --rm -v $HOME/data:/data elixir5
-```
-can be used to run the container
-
-# Solution Ex. 5
-
-[Solution](https://github.com/ELIXIR-IIB-training/tree/master/docker-advanced-course/solutions/1-4-05-samtools-conda/Dockerfile)
 
 
