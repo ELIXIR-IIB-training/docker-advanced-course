@@ -104,7 +104,7 @@ to access hosts' devices
 
 ```
 $ docker run \
-	--priviledged
+	--privileged
 	--rm \
 	-it \
 	--link registry
