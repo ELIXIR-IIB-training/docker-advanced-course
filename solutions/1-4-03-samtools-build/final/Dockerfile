@@ -1,5 +1,5 @@
 FROM ubuntu:18.04
-LABEL simple samtools dockerfile
+LABEL Building samtools from source
 ENV DEBIAN_FRONTEND noninteractive
 MAINTAINER Gianluca Della Vedova <gianluca@dellavedova.org>
 
@@ -19,13 +19,13 @@ RUN apt-get update && apt-get install -y \
   wget \
   zlib1g-dev
 
-WORKDIR "/data"
-RUN wget https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2 && \
- tar xjf samtools-1.9.tar.bz2
+WORKDIR "/code"
+RUN wget --quiet https://github.com/samtools/samtools/releases/download/1.9/samtools-1.9.tar.bz2
+RUN tar xjf samtools-1.9.tar.bz2
 
-WORKDIR  "/data/samtools-1.9"
-RUN ./configure && make && make install
+WORKDIR  "/code/samtools-1.9"
+RUN ./configure && make
 
-
-ENTRYPOINT samtools 2> /data/samtools.txt
+ENV PATH=/code/samtools-1.9:$PATH
+CMD samtools 2> /data/samtools.txt
 VOLUME ["/data"]
