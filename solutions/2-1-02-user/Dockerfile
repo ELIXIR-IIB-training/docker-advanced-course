@@ -25,7 +25,7 @@ RUN apt-get  update --fix-missing && \
   wget \
   zlib1g-dev
 
-WORKDIR /opt
+WORKDIR /code
 
 RUN wget --quiet https://repo.anaconda.com/miniconda/Miniconda${MINICONDA_VERSION}-Linux-x86_64.sh -O miniconda.sh
 RUN chmod ugo+x miniconda.sh 
