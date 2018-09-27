@@ -17,6 +17,6 @@ gosu user bwa index lambda_virus.fa.gz
 echo "bwa aln"
 gosu user bwa aln lambda_virus.fa.gz reads_1.fq.gz -f reads_1.fq.gz.sai
 echo "bwa samse"
-gosu user bwa samse lambda_virus.fa.gz reads_1.fq.gz.sai reads_1.fq.gz -f results
+gosu user bwa samse lambda_virus.fa.gz reads_1.fq.gz.sai reads_1.fq.gz -f results.bwa
 echo "bowtie2"
-gosu user bowtie2 -x index/lambda_virus -U reads_1.fq.gz
+gosu user bowtie2 -x index/lambda_virus -U reads_1.fq.gz > results.bowtie2
