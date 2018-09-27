@@ -45,7 +45,7 @@ Two different strategies:
 Build an image to run [cutadapt](https://cutadapt.readthedocs.io/en/stable/index.html) on this [sample](https://molb7621.github.io/workshop/_downloads/SP1.fq) fastq file with the command
 
 ```
-cutadapt -a AACCGGTT -o output.fastq input.fastq
+cutadapt -a TATCCTTG -o output.fastq input.fastq
 ```
 
 On the output file, you must run the `fastq-uniq` program, taken from the [git repo](https://github.com/dcjones/fastq-tools).
@@ -115,7 +115,7 @@ exec gosu user "$@"
 Build an image to run [cutadapt](https://cutadapt.readthedocs.io/en/stable/index.html) on this [sample](https://molb7621.github.io/workshop/_downloads/SP1.fq) fastq file with the command
 
 ```
-cutadapt -a AACCGGTT -o output.fastq input.fastq
+cutadapt -a TATCCTTG -o output.fastq input.fastq
 ```
 
 On the output file, you must run the `fastq-uniq` program, taken from the [git repo](https://github.com/dcjones/fastq-tools).
